@@ -1,2 +1,96 @@
-body {
-  background-color: white; }
+@charset "UTF-8";
+/* body{
+     width: 100%;
+    height: auto;
+    background-image: url(./../../imagenes/cajacort2.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+} */
+.colorh {
+  background-color: rgba(255, 40, 40, 0.5); }
+
+.posicion {
+  margin-left: 150px; }
+
+.tamaño {
+  height: 40px; }
+
+.distancia {
+  margin-right: 250px; }
+
+.nav-link {
+  margin: 10px;
+  color: white;
+  font-size: 20px; }
+
+.menu {
+  width: 100%;
+  height: auto;
+  background-image: url(./../../imagenes/piza2.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; }
+
+.subtitulo {
+  margin-left: 100px; }
+  .subtitulo h2 {
+    color: white;
+    text-decoration: underline;
+    text-shadow: 2px 2px 4px #000000; }
+
+.tarjeta {
+  margin: 30px; }
+
+.pedidos {
+  width: 100%;
+  height: auto;
+  background-image: url(./../../imagenes/cajacort2.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; }
+
+.espaciado {
+  padding: 30px; }
+
+.titulo {
+  padding: 10px; }
+  .titulo h1 {
+    text-align: center;
+    color: #e92041;
+    text-decoration: underline;
+    text-shadow: 2px 2px 4px #000000; }
+
+.imagen {
+  height: 100px; }
+
+.fot {
+  width: auto;
+  height: 150px;
+  background-color: #e92041;
+  display: flex;
+  flex-direction: column; }
+
+.logo {
+  width: auto;
+  height: auto;
+  /*     text-align: center; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; }
+  .logo img {
+    height: 50px; }
+
+.redes {
+  width: auto;
+  height: auto;
+  margin-right: 150px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center; }
+
+.fa-instagram {
+  color: white; }

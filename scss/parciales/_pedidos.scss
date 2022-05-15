@@ -1,0 +1,27 @@
+.pedidos{
+    width: 100%;
+    height: auto;
+
+    background-image: url(./../../imagenes/cajacort2.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.espaciado{
+    padding: 30px;
+}
+
+.titulo{
+    padding: 10px;
+    h1{
+        text-align: center;
+        color: rgb(233, 32, 65);
+        text-decoration: underline;
+        text-shadow: 2px 2px 4px #000000;
+    }
+}
+
+.imagen{
+    height: 100px;
+}

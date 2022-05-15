@@ -1,0 +1,22 @@
+.menu{
+    width: 100%;
+    height: auto;
+
+    background-image: url(./../../imagenes/piza2.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.subtitulo{
+    margin-left: 100px;
+    h2{
+        color: rgb(255, 255, 255);
+        text-decoration: underline;
+        text-shadow: 2px 2px 4px #000000;
+    }
+}
+
+.tarjeta{
+    margin: 30px;
+}
