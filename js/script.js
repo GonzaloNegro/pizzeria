@@ -36,7 +36,7 @@ function mostrar(mensaje){
 }
 
 function detallar(v1, v2, v3){
-    let detalle = "Tu compra es: Pizza" + v1 + "\nCantidad: " + v2 + "\nTotal: $" + v3;
+    let detalle = "Tu compra es: Pizza " + v1 + "\nCantidad: " + v2 + "\nTotal: $" + v3;
     return detalle;
 }
 
