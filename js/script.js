@@ -40,7 +40,9 @@ function detallar(v1, v2, v3){
     return detalle;
 }
 
-listar();
+setTimeout(listar, 1500);
+
+/* listar(); */
 
 p1 = 0;
 p2 = 0;
