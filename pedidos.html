@@ -47,7 +47,7 @@
                           <p class="card-text">Pizza individual con masa al estilo napoletano, mozzarella, bacon, extra queso cheddar, 2 huevos fritos, papas pay y aceitunas verdes..</p>
                           <p class="card-text"><small class="text-muted">Precio individual: $660</small></p>
                           <label for="cant">Agregar al carrito: </label>
-                          <input type="number" id="cant" min="0" max="10" placeholder="0">
+                          <input id="p1" type="number" id="cant" min="0" max="10" value="0">
                         </div>
                       </div>
                     </div>
@@ -63,7 +63,7 @@
                           <p class="card-text">Pizza individual con masa al estilo napoletano, mozzarella, carne, bacon, jamón y cantimpalo.</p>
                           <p class="card-text"><small class="text-muted">Precio individual: $640</small></p>
                           <label for="cant">Agregar al carrito: </label>
-                          <input type="number" id="cant" min="0" max="10" placeholder="0">
+                          <input id="p2" type="number" id="cant" min="0" max="10" value="0">
                         </div>
                       </div>
                     </div>
@@ -80,7 +80,7 @@
                         <p class="card-text">Pizza individual con masa al estilo napoletano, mozzarella, cebollas asadas, pimientos asados, berenjenas asadas, cherrys confitados y salsa flama.</p>
                         <p class="card-text"><small class="text-muted">Precio individual: $640</small></p>
                         <label for="cant">Agregar al carrito: </label>
-                        <input type="number" id="cant" min="0" max="10" placeholder="0">
+                        <input id="p3" type="number" id="cant" min="0" max="10" value="0">
                         </div>
                     </div>
                     </div>
@@ -96,10 +96,14 @@
                         <p class="card-text">Pizza individual con masa al estilo napoletano, mozzarella, pollo, crema de champignones, cebolla de verdeo y aceitunas verdes.</p>
                         <p class="card-text"><small class="text-muted">Precio individual: $660</small></p>
                         <label for="cant">Agregar al carrito: </label>
-                        <input type="number" id="cant" min="0" max="10" placeholder="0">
+                        <input id="p4" type="number" id="cant" min="0" max="10" value="0">
                         </div>
                     </div>
                     </div>
+                </div>
+                <div id="confirmado" class="ticket"></div>
+                <div>
+                  <input type="submit" id="calcular" class="calcular" value="Confirmar pedido">
                 </div>
             </div>
           </section>

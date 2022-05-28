@@ -1,134 +1,96 @@
-/* setTimeout(listar, 3000) */
-/* CREO ARRAY CON LAS PIZZAS DISPONIBLES */
-const pizzas = [
-    {id: 1, nombre: "Bombarda", precio: 600, descripcion: "Mozzarella, bacon, extra queso cheddar, 2 huevos fritos, papas pay y aceitunas verdes"},
-    {id: 2, nombre: "Carne Lover", precio: 640, descripcion: "Mozzarella, carne, bacon, jamón y cantimpalo"},
-    {id: 3, nombre: "Vegeta Rihanna", precio: 640, descripcion: "Mozzarella, cebollas asadas, pimientos asados, berenjenas asadas, cherrys confitados y salsa flama"},
-    {id: 4, nombre: "Chicha", precio: 660, descripcion: "Mozzarella, pollo, crema de champignones, cebolla de verdeo y aceitunas verdes"},
-]
-
-/* CREACIÓN DE FUNCION PARA LISTAR CADA UNA DE  LAS PIZZAS MEDIANTE UN FOREACH */
-function lista(){
-    pizzas.forEach(element => {
-        alert("MENÚ\nPizza " + element.id  + "\nNombre: " + element.nombre + "\nDescripción: " + element.descripcion + "\nPrecio: $" + element.precio)
-        }
-    );
-}
-
-/* FUNCIÓN PARA MULTIPLICAR CANTIDAD DE PIZZAS POR RESPECTIVO PRECIO */
+/* FUNCION PARA MULTIPLICAR LA CANTIDAD CON EL PRECIO */
 function multiplicar(numeroA, numeroB) {
     let multiplicacion = numeroA * numeroB;
     return multiplicacion;
 }
 
-/* FUNCIÒN PARA SUMAR LAS PIZZAS DE CADA TIPO */
-function sumar(m1, m2, m3, m4) {
-    let suma = m1 + m2 + m3 + m4;
-    return suma;
+/* FUNCIÓN PARA RECARGAR AUTOMATICAMENTE CUANDO NO SE INGRESO UNA CANTIDAD DE PIZZAS */
+function recarga(){
+    window.location.href = "pedidos.html"
 }
 
-/* FUNCIÒN PARA MOSTAR UN MENSAJE */
-function mostrar(mensaje){
-    return mensaje;
-}
 
-/* FUNCIÒN PARA MOSTRAR LA COMPRA FINAL */
-function detallar(v1, v2, v3){
-    let detalle = "Tu compra es: Pizza " + v1 + "\nCantidad: " + v2 + "\nTotal: $" + v3;
-    return detalle;
-}
 
-/* EJECUTO LA FUNCIÒN LISTA PARA QUE ME MUESTRE EL MENÙ DISPONIBLE */
-lista();
+/* A LA VARIABLE btnCalcular LE ASIGNO EL VALOR DEL ID CALCULAR */
+const btnCalcular = document.getElementById("calcular");
 
-/* DECLARO UNA VARIBALE GLOBAL PARA QUE SELECCIONEN LA PIZZA DEL MENÙ QUE DESEAN */
-let opcion = parseInt(prompt("Seleccione una de las pizzas del menú o presione 0 para salir"));
+/* CREO UNA FUNCIÓN TRAYENDO LOS VALORES DE LAS 4 CANTIDADES DE PIZZAS */
+function comprar(v1, v2, v3, v4){
+    /* CREO UNA VARIABLE QUE TIENE ASIGNADO EL DIV DEL HTML PARA LUEGO ESCRIBIR EN EL */
+    let lista = document.querySelector("#confirmado");
 
-/* INICIALIZO LAS VARIABLES EN 0 */
-p1 = 0;
-p2 = 0;
-p3 = 0;
-p4 = 0;
-cantidad = 0;
-totalCant = 0;
+    /* CREO UN ARRAY CON LAS PIZZAS */
+    let pizzas = [
+        {id: 1, nombre: "Bombarda", precio: 600, descripcion: "Mozzarella, bacon, extra queso cheddar, 2 huevos fritos, papas pay y aceitunas verdes", cantidad: 0},
+        {id: 2, nombre: "Carne Lover", precio: 640, descripcion: "Mozzarella, carne, bacon, jamón y cantimpalo", cantidad: 0},
+        {id: 3, nombre: "Vegeta Rihanna", precio: 640, descripcion: "Mozzarella, cebollas asadas, pimientos asados, berenjenas asadas, cherrys confitados y salsa flama", cantidad: 0},
+        {id: 4, nombre: "Chicha", precio: 660, descripcion: "Mozzarella, pollo, crema de champignones, cebolla de verdeo y aceitunas verdes", cantidad: 0},
+    ]
 
-/* EJECUTO UNA ESTRUCTURA REPETITIVA SIEMPRE QUE SE SIGA SOLICITANDO PIZZAS Y NO SE PRESIONE 0 PARA SALIR DEL SISTEMA */
-while(opcion !=0){
+    /* ASIGNO A CADA ELEMENTO DEL ARRAY SU CANTIDAD CORRESPONDIENTES DE PIZZAS */
+    pizzas[0].cantidad = v1;
+    pizzas[1].cantidad = v2;
+    pizzas[2].cantidad = v3;
+    pizzas[3].cantidad = v4;
 
-    /* UTILIZO EL METODO FIND PARA TRAER LA PIZZA(ELEMENT) DEPENDIENDO EL VALOR SELECCIONADO EN "OPCION" */
-    const encontrado = pizzas.find((element)=>element.id == opcion);
-    /* MUESTRO LA PIZZA SELECCIONADA CON SU PRECIO */
-    alert("La pizza seleccionada es: " + encontrado.nombre + "\nPrecio: $" + encontrado.precio);
+    /* INICIALIZO LA VARIABLE QUE ACUMULARÁ EL MONTO TOTAL */
+    let total = 0;
 
-    /* SE EJECUTARA EN LA ESTRUCTURA SWITCH EL CASO SELECCIONADO DEPENDIENDO DEL VALOR DE "OPCION" */
-    switch (encontrado.id) {
-        case 1:
-            /* GUARDO LA CANTIDAD DE PIZZAS DE ESTE TIPO */
-            p1 = parseInt(prompt("Por favor selecciona la cantidad"));
-            /* UTILIZO UNA VARIABLE PARA IR GUARDANDO LA CANTIDAD DE PIZZAS DE ESTE TIPO */
-            cantidad = p1;
-            break;
+    /* CREO UNA VARIABLE PARA MOSTRAR CONTENIDO CON EL HTML */
+    let h2 = document.createElement("h2");
+    h2.innerText = "Resumen de la compra";
+    lista.appendChild(h2); 
+
+    /* 
+    PARA CADA ELEMENTO DEL ARRAY PIZZAS
+    CREO UN ELEMENTO li DE LISTA
+    SI LA CANTIDAD DE CADA ELEMENTO DEL ARRAY ES DISTINTA A 0
+    SE ESCRIBE EN EL HTML EL ELEMENTO li
+    LUEGO ACUMULO EL MONTO TOTAL EN LA VARIABLE total*/
+    for (const elemento of pizzas) {
+    let li = document.createElement("li");
+    if(elemento.cantidad != 0){
+        li.innerText =`Pizza: ${elemento.nombre}\nCantidad: ${elemento.cantidad}\nPrecio: $${elemento.precio*elemento.cantidad}\n\n`;
+        lista.appendChild(li);
+    }
+    total = total + multiplicar(elemento.precio,elemento.cantidad);
+    }
+
+    /* 
+    SI EL TOTAL ES IGUAL A 0, AVISA POR PANTALLA QUE PARA REALIZAR EL PEDIDO, SE HACE ARRIBA
+    Y SE RECARGA LA PAGINA
     
-        case 2:
-            p2 = parseInt(prompt("Por favor selecciona la cantidad"));
-            cantidad = p2;
-            break;
-    
-         case 3:
-            p3 = parseInt(prompt("Por favor selecciona la cantidad"));
-            cantidad = p3;
-            break;
+    SI ES DISTINTO A 0, ES PORQUE HAY UNA CANTIDAD DE PIZZAS SELECCIONADAS.
+    MUESTRA POR PANTALLA EL MONTO TOTAL Y UN SALUDO
+    */
+    if(total == 0){
+        let pedir = document.createElement("h5");
+        pedir.innerText = "¡¡¡Realizá tu pedido arriba!!!";
+        lista.appendChild(pedir);
+        setTimeout(recarga, 2000);
+    }else{        
+        let h4 = document.createElement("h4");
+        h4.innerText = "Monto total: $" + total;
+        lista.appendChild(h4);
 
-        case 4:
-            p4 = parseInt(prompt("Por favor selecciona la cantidad"));
-            cantidad = p4;
-            break;
+        let saludo = document.createElement("h5");
+        saludo.innerText = "¡¡¡Gracias por tu compra, volvé pronto!!!";
+        lista.appendChild(saludo); 
     }
-
-    /* USO UN ACUMULADOR PARA GUARDAR LA CANTIDAD DE PIZZAS TOTALES, INDEPENDIENTEMENTE DEL TIPO */
-    totalCant = totalCant + cantidad;
-
-    /* SI LA CANTIDAD DE PIZZAS DE UN TIPO ES DIFERENTE A 0, 
-    GUARDO MENSAJES DETALLANDO LA PIZZA Y PRECIO DE LA MISMA POR SU CANTIDAD */
-    if(p1 != 0){piz1 = detallar(pizzas[0].nombre,p1,mostrar(multiplicar(p1,pizzas[0].precio)));}else{piz1 = "";}
-
-    if(p2 != 0){piz2 = detallar(pizzas[1].nombre,p2,mostrar(multiplicar(p2,pizzas[1].precio)));}else{piz2 = "";}
-
-    if(p3 != 0){piz3 = detallar(pizzas[2].nombre,p3,mostrar(multiplicar(p3,pizzas[2].precio)));}else{piz3 = "";}
-    
-    if(p4 != 0){piz4 = detallar(pizzas[3].nombre,p4,mostrar(multiplicar(p4,pizzas[3].precio)));}else{piz4 = "";}
-
-
-    /* MUESTRO EL MENSAJE SI ES QUE HAY PIZZAS PEDIDAS */
-    if(p1 != 0){
-        alert(mostrar(piz1));
-    }
-
-     if(p2 != 0){
-        alert(mostrar(piz2));
-    }
-
-    if(p3 != 0){
-        alert(mostrar(piz3));
-    }
-
-    if(p4 != 0){
-        alert(mostrar(piz4));
-    }
-     
-    /* CALCULO EL PRECIO TOTAL DE UNA PIZZA, TENIENDO EN CUENTA SU PRECIO Y LA CANTIDAD SELECCIONADA */
-    m1 = multiplicar(p1,pizzas[0].precio);
-    m2 = multiplicar(p2,pizzas[1].precio);
-    m3 = multiplicar(p3,pizzas[2].precio);
-    m4 = multiplicar(p4,pizzas[3].precio);
-
-    /* MUESTRO NUEVAMENTE EL MENÙ */
-    lista() 
-    /* LLAMO A LA VARIABLE "OPCIÒN" PARA QUE EL USUARIO ELIJA SI COMPRA MAS O FINALIZA EL PEDIDO */
-    opcion = parseInt(prompt("Seleccione una de las pizzas del menú o presione 0 para salir"));
-
 }
-/* FINALIZÓ EL PEDIDO Y MUESTRO EL TOTAL DE LA COMPRA */
-alert("El monto total de tu compra es: $" + mostrar(sumar(m1, m2, m3, m4)) + "\nTOTAL PIZZAS: " + totalCant);
-/* SALUDO DE DESPEDIDA */
-alert("Gracias por elegirnos, volvé pronto!");
+
+/* 
+CREO UN EVENTO PARA CUANDO PRESIONO EL BOTON CALCULAR
+TRAIGO LOS VALORES DE LA CANTIDAD DE CADA PIZZA
+PASO CADA CANTIDAD A LA FUNCION CALCULAR
+OCULTO EL BOTON CALCULAR 
+*/
+btnCalcular.addEventListener("click", ()=>{
+    let p1 = document.getElementById('p1').value;
+    let p2 = document.getElementById('p2').value;
+    let p3 = document.getElementById('p3').value;
+    let p4 = document.getElementById('p4').value;
+    comprar(p1, p2, p3, p4);
+    document.getElementById("calcular").style.visibility = "hidden";
+    }
+)
