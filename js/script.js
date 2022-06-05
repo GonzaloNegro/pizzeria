@@ -9,8 +9,6 @@ function recarga(){
     window.location.href = "pedidos.html"
 }
 
-
-
 /* A LA VARIABLE btnCalcular LE ASIGNO EL VALOR DEL ID CALCULAR */
 const btnCalcular = document.getElementById("calcular");
 
@@ -27,6 +25,7 @@ function comprar(v1, v2, v3, v4){
         {id: 4, nombre: "Chicha", precio: 660, descripcion: "Mozzarella, pollo, crema de champignones, cebolla de verdeo y aceitunas verdes", cantidad: 0},
     ]
 
+
     /* ASIGNO A CADA ELEMENTO DEL ARRAY SU CANTIDAD CORRESPONDIENTES DE PIZZAS */
     pizzas[0].cantidad = v1;
     pizzas[1].cantidad = v2;
@@ -42,19 +41,35 @@ function comprar(v1, v2, v3, v4){
     lista.appendChild(h2); 
 
     /* 
-    PARA CADA ELEMENTO DEL ARRAY PIZZAS
-    CREO UN ELEMENTO li DE LISTA
-    SI LA CANTIDAD DE CADA ELEMENTO DEL ARRAY ES DISTINTA A 0
-    SE ESCRIBE EN EL HTML EL ELEMENTO li
+    CREO UN ARRAY items PARA POSTERIORMENTE GUARDAR LOS ITEMS DEL SESSION EN ESTE
+    PARA CADA ELEMENTO DEL ARRAY PIZZA
+    SI HAY UN NUMERO DE PIZZAS SOLICITADO
+    LLENO EL ARRAY items CON CADA UNA DE ELLAS
+    POSTERIORMENTE CREO LA SESSION PARA GUARDAR LOS VALORES DE ESTE ARRAY
     LUEGO ACUMULO EL MONTO TOTAL EN LA VARIABLE total*/
+    let items = [];
     for (const elemento of pizzas) {
-    let li = document.createElement("li");
-    if(elemento.cantidad != 0){
-        li.innerText =`Pizza: ${elemento.nombre}\nCantidad: ${elemento.cantidad}\nPrecio: $${elemento.precio*elemento.cantidad}\n\n`;
-        lista.appendChild(li);
+
+        if(elemento.cantidad != 0){
+            items.push("Pizza: " + elemento.nombre + " - " + "Cantidad: " + elemento.cantidad + " - " + "Precio: $" + (elemento.precio*elemento.cantidad))
+            sessionStorage.setItem('carrito', JSON.stringify(items))
     }
+
     total = total + multiplicar(elemento.precio,elemento.cantidad);
     }
+
+    /* 
+    PARA CADA ELEMENTO DEL ARRAY ITEMS
+    APLICO DOM Y CREO UN ELEMENTO li 
+    LE ASIGNO AL ELEMNTO li UN VALOR TRAIDO DEL ARRAY
+    LO INSERTO EN EL HTML
+    */
+    for(const element of items){
+        let li = document.createElement("li");
+        li.innerText = element;
+        lista.appendChild(li);
+    }
+
 
     /* 
     SI EL TOTAL ES IGUAL A 0, AVISA POR PANTALLA QUE PARA REALIZAR EL PEDIDO, SE HACE ARRIBA
@@ -94,3 +109,36 @@ btnCalcular.addEventListener("click", ()=>{
     document.getElementById("calcular").style.visibility = "hidden";
     }
 )
+
+/* 
+CREO LA FUNCION PEDIDO QUE VA A RECIBIR COMO PARAMETRO UN SOLO VALOR
+PARA CADA ELEMENTO DE ESE VALOR
+CREO UN ELEMENTO li
+LE ASIGNO A ESE ELEMENTO li UN VALOR DEL ELEMENTO DEL ARRAY
+INSERTO EN EL HTML DICHO li
+OCULTO EL BOTON DE "CALCULAR"
+*/
+
+function pedido(x){
+    for(const element of x){
+        let li = document.createElement("li");
+        li.innerText = element
+        lista1.appendChild(li);
+    }
+     document.getElementById("calcular").style.visibility = "hidden";
+}
+
+/* 
+CREO UNA VARIABLE lista2 Y LE ASIGNO EL VALOR DEL ID confi PARA LUEGO PONER INFORMACION EN EL
+CREO LA VARIABLE p Y TRAIGO POR MEDIO DEL JSON PARSE LOS ELEMENTOS QUE ESTEN EN LA KEY carrito
+*/
+
+let lista1 = document.querySelector("#confi");
+let p = JSON.parse(sessionStorage.getItem('carrito'));
+
+
+/* 
+EJECUTO LA FUNCIÓN DE pedido CON EL PARAMENTRO p QUE CONTIENE LOS VALORES DE LA SESSION
+PARA QUE ESTOS SEAN INSERTADOS Y LISTADOS MEDIANTE LA FUNCION pedido EN EL HTML
+*/
+pedido(p);

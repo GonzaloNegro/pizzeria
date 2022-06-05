@@ -24,6 +24,9 @@
   color: white;
   font-size: 20px; }
 
+.carr {
+  cursor: pointer; }
+
 .menu {
   width: 100%;
   height: auto;
