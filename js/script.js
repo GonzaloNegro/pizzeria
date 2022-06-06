@@ -52,7 +52,7 @@ function comprar(v1, v2, v3, v4){
 
         if(elemento.cantidad != 0){
             items.push("Pizza: " + elemento.nombre + " - " + "Cantidad: " + elemento.cantidad + " - " + "Precio: $" + (elemento.precio*elemento.cantidad))
-            sessionStorage.setItem('carrito', JSON.stringify(items))
+            localStorage.setItem('carrito', JSON.stringify(items))
     }
 
     total = total + multiplicar(elemento.precio,elemento.cantidad);
@@ -125,7 +125,7 @@ function pedido(x){
         li.innerText = element
         lista1.appendChild(li);
     }
-     document.getElementById("calcular").style.visibility = "hidden";
+    document.getElementById("calcular").style.visibility = "hidden";
 }
 
 /* 
@@ -134,7 +134,7 @@ CREO LA VARIABLE p Y TRAIGO POR MEDIO DEL JSON PARSE LOS ELEMENTOS QUE ESTEN EN 
 */
 
 let lista1 = document.querySelector("#confi");
-let p = JSON.parse(sessionStorage.getItem('carrito'));
+let p = JSON.parse(localStorage.getItem('carrito'));
 
 
 /* 
