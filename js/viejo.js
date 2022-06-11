@@ -1,97 +1,91 @@
-/* const pizzas = [
-    {id: 1, nombre: "Bombarda", precio: 600, descripcion: "Mozzarella, bacon, extra queso cheddar, 2 huevos fritos, papas pay y aceitunas verdes"},
-    {id: 2, nombre: "Carne Lover", precio: 640, descripcion: "Mozzarella, carne, bacon, jamón y cantimpalo"},
-    {id: 3, nombre: "Vegeta Rihanna", precio: 640, descripcion: "Mozzarella, cebollas asadas, pimientos asados, berenjenas asadas, cherrys confitados y salsa flama"},
-    {id: 4, nombre: "Chicha", precio: 660, descripcion: "Mozzarella, pollo, crema de champignones, cebolla de verdeo y aceitunas verdes"},
-]
-
-function multiplicar(numeroA, numeroB) {
+/* function multiplicar(numeroA, numeroB) {
     let multiplicacion = numeroA * numeroB;
     return multiplicacion;
 }
 
-function sumar(m1, m2, m3, m4) {
-    let suma = m1 + m2 + m3 + m4;
-    return suma;
+function recarga(){
+    window.location.href = "pedidos.html"
 }
 
-function mostrar(mensaje){
-    return mensaje;
+const btnCalcular = document.getElementById("calcular");
+
+function comprar(v1, v2, v3, v4){
+
+    let lista = document.querySelector("#confirmado");
+
+    let pizzas = [
+        {id: 1, nombre: "Bombarda", precio: 600, descripcion: "Mozzarella, bacon, extra queso cheddar, 2 huevos fritos, papas pay y aceitunas verdes", cantidad: 0},
+        {id: 2, nombre: "Carne Lover", precio: 640, descripcion: "Mozzarella, carne, bacon, jamón y cantimpalo", cantidad: 0},
+        {id: 3, nombre: "Vegeta Rihanna", precio: 640, descripcion: "Mozzarella, cebollas asadas, pimientos asados, berenjenas asadas, cherrys confitados y salsa flama", cantidad: 0},
+        {id: 4, nombre: "Chicha", precio: 660, descripcion: "Mozzarella, pollo, crema de champignones, cebolla de verdeo y aceitunas verdes", cantidad: 0},
+    ]
+
+    pizzas[0].cantidad = v1;
+    pizzas[1].cantidad = v2;
+    pizzas[2].cantidad = v3;
+    pizzas[3].cantidad = v4;
+
+    let total = 0;
+
+    let h2 = document.createElement("h2");
+    h2.innerText = "Resumen de la compra";
+    lista.appendChild(h2); 
+
+    let items = [];
+    for (const elemento of pizzas) {
+
+        if(elemento.cantidad != 0){
+            items.push("Pizza: " + elemento.nombre + " - " + "Cantidad: " + elemento.cantidad + " - " + "Precio: $" + (elemento.precio*elemento.cantidad))
+            localStorage.setItem('carrito', JSON.stringify(items))
+    }
+
+    total = total + multiplicar(elemento.precio,elemento.cantidad);
+    }
+
+    for(const element of items){
+        let li = document.createElement("li");
+        li.innerText = element;
+        lista.appendChild(li);
+    }
+
+    if(total == 0){
+        let pedir = document.createElement("h5");
+        pedir.innerText = "¡¡¡Realizá tu pedido arriba!!!";
+        lista.appendChild(pedir);
+        setTimeout(recarga, 2000);
+    }else{        
+        let h4 = document.createElement("h4");
+        h4.innerText = "Monto total: $" + total;
+        lista.appendChild(h4);
+
+        let saludo = document.createElement("h5");
+        saludo.innerText = "¡¡¡Gracias por tu compra, volvé pronto!!!";
+        lista.appendChild(saludo); 
+    }
 }
 
-function detallar(v1, v2, v3){
-    let detalle = "Tu compra es: Pizza " + v1 + "\nCantidad: " + v2 + "\nTotal: $" + v3;
-    return detalle;
+btnCalcular.addEventListener("click", ()=>{
+    let p1 = document.getElementById('p1').value;
+    let p2 = document.getElementById('p2').value;
+    let p3 = document.getElementById('p3').value;
+    let p4 = document.getElementById('p4').value;
+    comprar(p1, p2, p3, p4);
+    document.getElementById("calcular").style.visibility = "hidden";
+    }
+)
+
+function pedido(x){
+    for(const element of x){
+        let li = document.createElement("li");
+        li.innerText = element
+        lista1.appendChild(li);
+    }
+    document.getElementById("calcular").style.visibility = "hidden";
 }
 
-let p1 = 0;
-let p2 = 0;
-let p3 = 0;
-let p4 = 0;
-let cantidad = 0;
-let totalCant = 0;
 
-while(opcion !=0){
+let lista1 = document.querySelector("#confi");
+let p = JSON.parse(localStorage.getItem('carrito'));
 
 
-    const encontrado = pizzas.find((element)=>element.id == opcion);
-
-    alert("La pizza seleccionada es: " + encontrado.nombre + "\nPrecio: $" + encontrado.precio);
-
-    switch (encontrado.id) {
-        case 1:
-            p1 = parseInt(prompt("Por favor selecciona la cantidad"));
-            cantidad = p1;
-            break;
-    
-        case 2:
-            p2 = parseInt(prompt("Por favor selecciona la cantidad"));
-            cantidad = p2;
-            break;
-    
-         case 3:
-            p3 = parseInt(prompt("Por favor selecciona la cantidad"));
-            cantidad = p3;
-            break;
-
-        case 4:
-            p4 = parseInt(prompt("Por favor selecciona la cantidad"));
-            cantidad = p4;
-            break;
-    }
-
-    totalCant = totalCant + cantidad;
-
-    if(p1 != 0){piz1 = detallar(pizzas[0].nombre,p1,mostrar(multiplicar(p1,pizzas[0].precio)));}else{piz1 = "";}
-
-    if(p2 != 0){piz2 = detallar(pizzas[1].nombre,p2,mostrar(multiplicar(p2,pizzas[1].precio)));}else{piz2 = "";}
-
-    if(p3 != 0){piz3 = detallar(pizzas[2].nombre,p3,mostrar(multiplicar(p3,pizzas[2].precio)));}else{piz3 = "";}
-    
-    if(p4 != 0){piz4 = detallar(pizzas[3].nombre,p4,mostrar(multiplicar(p4,pizzas[3].precio)));}else{piz4 = "";}
-
-    if(p1 != 0){
-        alert(mostrar(piz1));
-    }
-
-     if(p2 != 0){
-        alert(mostrar(piz2));
-    }
-
-    if(p3 != 0){
-        alert(mostrar(piz3));
-    }
-
-    if(p4 != 0){
-        alert(mostrar(piz4));
-    }
-     
-    m1 = multiplicar(p1,pizzas[0].precio);
-    m2 = multiplicar(p2,pizzas[1].precio);
-    m3 = multiplicar(p3,pizzas[2].precio);
-    m4 = multiplicar(p4,pizzas[3].precio);
-}
-alert("El monto total de tu compra es: $" + mostrar(sumar(m1, m2, m3, m4)) + "\nTOTAL PIZZAS: " + totalCant);
-alert("Gracias por elegirnos, volvé pronto!");
-
- */
+pedido(p); */

@@ -14,8 +14,6 @@ const btnCalcular = document.getElementById("calcular");
 
 /* CREO UNA FUNCIÓN TRAYENDO LOS VALORES DE LAS 4 CANTIDADES DE PIZZAS */
 function comprar(v1, v2, v3, v4){
-    /* CREO UNA VARIABLE QUE TIENE ASIGNADO EL DIV DEL HTML PARA LUEGO ESCRIBIR EN EL */
-    let lista = document.querySelector("#confirmado");
 
     /* CREO UN ARRAY CON LAS PIZZAS */
     let pizzas = [
@@ -25,20 +23,16 @@ function comprar(v1, v2, v3, v4){
         {id: 4, nombre: "Chicha", precio: 660, descripcion: "Mozzarella, pollo, crema de champignones, cebolla de verdeo y aceitunas verdes", cantidad: 0},
     ]
 
-
+cantPizzas = parseInt(v1) + parseInt(v2) + parseInt(v3) + parseInt(v4);
     /* ASIGNO A CADA ELEMENTO DEL ARRAY SU CANTIDAD CORRESPONDIENTES DE PIZZAS */
     pizzas[0].cantidad = v1;
     pizzas[1].cantidad = v2;
     pizzas[2].cantidad = v3;
     pizzas[3].cantidad = v4;
 
+
     /* INICIALIZO LA VARIABLE QUE ACUMULARÁ EL MONTO TOTAL */
     let total = 0;
-
-    /* CREO UNA VARIABLE PARA MOSTRAR CONTENIDO CON EL HTML */
-    let h2 = document.createElement("h2");
-    h2.innerText = "Resumen de la compra";
-    lista.appendChild(h2); 
 
     /* 
     CREO UN ARRAY items PARA POSTERIORMENTE GUARDAR LOS ITEMS DEL SESSION EN ESTE
@@ -51,47 +45,37 @@ function comprar(v1, v2, v3, v4){
     for (const elemento of pizzas) {
 
         if(elemento.cantidad != 0){
-            items.push("Pizza: " + elemento.nombre + " - " + "Cantidad: " + elemento.cantidad + " - " + "Precio: $" + (elemento.precio*elemento.cantidad))
-            localStorage.setItem('carrito', JSON.stringify(items))
+
+            items.push("Pizza: " + elemento.nombre + " \n " + "Cantidad: " + elemento.cantidad + " \n " + "Precio: $" + (elemento.precio*elemento.cantidad))
+            sessionStorage.setItem('carrito', JSON.stringify(items));
+
     }
 
     total = total + multiplicar(elemento.precio,elemento.cantidad);
     }
 
-    /* 
-    PARA CADA ELEMENTO DEL ARRAY ITEMS
-    APLICO DOM Y CREO UN ELEMENTO li 
-    LE ASIGNO AL ELEMNTO li UN VALOR TRAIDO DEL ARRAY
-    LO INSERTO EN EL HTML
-    */
-    for(const element of items){
-        let li = document.createElement("li");
-        li.innerText = element;
-        lista.appendChild(li);
-    }
+    document.querySelector("#cant").innerText = " " + cantPizzas;
+
+    const boton = document.getElementById('cant');
 
 
-    /* 
-    SI EL TOTAL ES IGUAL A 0, AVISA POR PANTALLA QUE PARA REALIZAR EL PEDIDO, SE HACE ARRIBA
-    Y SE RECARGA LA PAGINA
-    
-    SI ES DISTINTO A 0, ES PORQUE HAY UNA CANTIDAD DE PIZZAS SELECCIONADAS.
-    MUESTRA POR PANTALLA EL MONTO TOTAL Y UN SALUDO
-    */
-    if(total == 0){
-        let pedir = document.createElement("h5");
-        pedir.innerText = "¡¡¡Realizá tu pedido arriba!!!";
-        lista.appendChild(pedir);
-        setTimeout(recarga, 2000);
-    }else{        
-        let h4 = document.createElement("h4");
-        h4.innerText = "Monto total: $" + total;
-        lista.appendChild(h4);
-
-        let saludo = document.createElement("h5");
-        saludo.innerText = "¡¡¡Gracias por tu compra, volvé pronto!!!";
-        lista.appendChild(saludo); 
-    }
+    boton.addEventListener('click', () => {
+        if(cantPizzas == 0){
+            Swal.fire({
+                title: 'Mi compra',
+                text:`No tenes pizzas en tu carrito, realizá tu pedido!`,
+                confirmButtonText:'Comprar',
+                position:'center'
+            })
+        }else{
+            Swal.fire({
+                title: 'Mi compra',
+                text:`${items}\nMonto total: $${total}`,
+                confirmButtonText:'Confirmar pedido',
+                position:'center'
+            })
+        }
+    })
 }
 
 /* 
@@ -106,39 +90,5 @@ btnCalcular.addEventListener("click", ()=>{
     let p3 = document.getElementById('p3').value;
     let p4 = document.getElementById('p4').value;
     comprar(p1, p2, p3, p4);
-    document.getElementById("calcular").style.visibility = "hidden";
     }
 )
-
-/* 
-CREO LA FUNCION PEDIDO QUE VA A RECIBIR COMO PARAMETRO UN SOLO VALOR
-PARA CADA ELEMENTO DE ESE VALOR
-CREO UN ELEMENTO li
-LE ASIGNO A ESE ELEMENTO li UN VALOR DEL ELEMENTO DEL ARRAY
-INSERTO EN EL HTML DICHO li
-OCULTO EL BOTON DE "CALCULAR"
-*/
-
-function pedido(x){
-    for(const element of x){
-        let li = document.createElement("li");
-        li.innerText = element
-        lista1.appendChild(li);
-    }
-    document.getElementById("calcular").style.visibility = "hidden";
-}
-
-/* 
-CREO UNA VARIABLE lista2 Y LE ASIGNO EL VALOR DEL ID confi PARA LUEGO PONER INFORMACION EN EL
-CREO LA VARIABLE p Y TRAIGO POR MEDIO DEL JSON PARSE LOS ELEMENTOS QUE ESTEN EN LA KEY carrito
-*/
-
-let lista1 = document.querySelector("#confi");
-let p = JSON.parse(localStorage.getItem('carrito'));
-
-
-/* 
-EJECUTO LA FUNCIÓN DE pedido CON EL PARAMENTRO p QUE CONTIENE LOS VALORES DE LA SESSION
-PARA QUE ESTOS SEAN INSERTADOS Y LISTADOS MEDIANTE LA FUNCION pedido EN EL HTML
-*/
-pedido(p);
