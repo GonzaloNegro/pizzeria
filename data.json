@@ -1,0 +1,33 @@
+[
+    {
+        "id": 1, 
+        "nombre": "Bombarda",
+        "precio": 600, 
+        "descripcion": "Mozzarella, bacon, extra queso cheddar, 2 huevos fritos, papas pay y aceitunas verdes",
+        "cantidad": 0,
+        "imagen": "./imagenes/bombarda.jpg"
+    },
+    {
+        "id": 2,
+        "nombre": "Carne Lover", 
+        "precio": 640, 
+        "descripcion": "Mozzarella, carne, bacon, jamón y cantimpalo", 
+        "cantidad": 0,
+        "imagen": "./imagenes/carnelover.jpg"
+        },
+    {
+        "id": 3, 
+        "nombre": "Vegeta Rihanna", 
+        "precio": 640,
+        "descripcion": "Mozzarella, cebollas asadas, pimientos asados, berenjenas asadas, cherrys confitados y salsa flama", 
+        "cantidad": 0,
+        "imagen": "./imagenes/vegeta.jpg"
+    },
+    {
+        "id": 4,
+        "nombre": "Chicha", 
+        "precio": 660, 
+        "descripcion": "Mozzarella, pollo, crema de champignones, cebolla de verdeo y aceitunas verdes", "cantidad": 0,
+        "imagen": "./imagenes/chicha.jpg"
+        }
+]

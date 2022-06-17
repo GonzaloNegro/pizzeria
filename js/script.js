@@ -1,3 +1,68 @@
+/* EJECUTAR LA FUNCIÓN AL CARGAR LA PÁGINA */
+window.onload = getData();
+
+/* ASIGNO A LAS VARIABLES LOS ID DEL HTML PARA ASIGNARLES CONTENIDO */
+const info = document.querySelector('#info');
+const but = document.querySelector('#btn');
+
+/* FUNCION ASINCRONA PARA TRAER LOS DATOS DEL JSON */
+async function getData(){
+    const response = await fetch('./data.json');
+    const data = await response.json();
+    createHTML(data);
+}
+
+/* FUNCIÓN PARA AGREGAR AL HTML CONTENIDO MEDIANTE LOS DATOS TRAIDOS DEL JSON */
+function createHTML(array) {
+    info.innerHTML = ''
+    but.innerHTML = ''
+    let p = 1;
+    array.forEach((piz) => {
+        const card = `
+        <div class="card mb-3" >
+        <div class="row g-0">
+          <div class="col-md-3">
+            <img src="${piz.imagen}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">${piz.nombre}</h5>
+              <p class="card-text">${piz.descripcion}</p>
+              <p class="card-text"><small class="text-muted">Precio individual: $${piz.precio}</small></p>
+              <label for="p${p}">Agregar al carrito: </label>
+              <input id="p${p}" type="number" min="0" max="10" value="0">
+            </div>
+          </div>
+        </div>
+      </div>`
+        info.innerHTML += card
+        p += 1;
+    }
+    )
+    but.innerHTML =`<input type="submit" id="calcular" class="calcular" value="Confirmar pedido">`
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* FUNCION PARA RECARGAR LA PÁGINA DESPUES DE LAS ACCIONES DEL USUARIO */
 function recargar(){
     location.reload();
@@ -87,7 +152,7 @@ function sumar(a,b,c,d){
 }
 
 /* A LA VARIABLE btnCalcular LE ASIGNO EL VALOR DEL ID CALCULAR */
-const btnCalcular = document.getElementById("calcular");
+const btnCalcular = document.getElementById("btn");
 
 
 /* FUNCIÓN UTILIZADA PARA MOSTRAR POR PANTALLA UN AVISO DE QUE SE AGREGARON PRODUCTOS AL CARRITO */
@@ -262,3 +327,4 @@ function comprar(v1, v2, v3, v4){
         })
     }
 }
+
