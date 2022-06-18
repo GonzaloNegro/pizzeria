@@ -43,26 +43,6 @@ function createHTML(array) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* FUNCION PARA RECARGAR LA PÁGINA DESPUES DE LAS ACCIONES DEL USUARIO */
 function recargar(){
     location.reload();
@@ -107,17 +87,9 @@ boton.addEventListener('click', () => {
             footer: `Monto total: $${tt}`
         }).then((result)=>{
             if (result.isConfirmed) {
-                /* location.href ="index.html"; */
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Gracias por tu compra!',
-                    text: 'Tu producto está en camino!',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-                  borrarStorage();
-                  setTimeout(recargar, 2000);
+                    location.href ="pago.html";
+/*                     borrarStorage();
+                    setTimeout(recargar, 2000); */
             }else if(result.dismiss === Swal.DismissReason.cancel){
                 borrarStorage();
                 Swal.fire({
@@ -292,17 +264,17 @@ function comprar(v1, v2, v3, v4){
             footer: `Monto total: $${total}`
         }).then((result)=>{
             if (result.isConfirmed) {
-                /* location.href ="index.html"; */
-                Swal.fire({
+/*                 Swal.fire({
                     position: 'center',
                     icon: 'success',
                     title: 'Gracias por tu compra!',
                     text: 'Tu producto está en camino!',
                     showConfirmButton: false,
                     timer: 1500
-                  })
-                  borrarStorage();
-                  setTimeout(recargar, 2000);
+                  }) */
+                  location.href ="pago.html";
+/*                   borrarStorage();
+                  setTimeout(recargar, 2000); */
             }else if(result.dismiss === Swal.DismissReason.cancel){
                 borrarStorage();
                 Swal.fire({
@@ -327,4 +299,15 @@ function comprar(v1, v2, v3, v4){
         })
     }
 }
+
+
+
+/* for (const personaje of personajes) {
+    let li = document.createElement("li");
+    li.innerText = personaje;
+    lista.appendChild(li);
+} */
+
+
+
 
