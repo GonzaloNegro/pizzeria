@@ -173,3 +173,16 @@
     color: white;
     background-color: green;
     border-radius: 5px; }
+
+@media screen and (max-width: 599px) {
+  .posicion {
+    margin-left: 0px; }
+  .tarjeta {
+    margin: 0 auto;
+    width: 300px; }
+  .redes {
+    margin-right: 10px; }
+  .subtitulo {
+    margin-left: 0px; }
+  .informacion {
+    width: 300px; } }

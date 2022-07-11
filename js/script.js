@@ -301,7 +301,6 @@ function comprar(v1, v2, v3, v4){
 }
 
 
-
 /* for (const personaje of personajes) {
     let li = document.createElement("li");
     li.innerText = personaje;
